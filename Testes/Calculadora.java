@@ -19,8 +19,8 @@ public class Calculadora {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int opcao = 0;
-        float resultado = 0, num1 = 0, num2 = 0;
+        int opcao;
+        float resultado, num1, num2;
 
         do{
             System.out.println("===== CALCULADORA =====");
