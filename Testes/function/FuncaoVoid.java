@@ -1,3 +1,4 @@
+package function;
 public class FuncaoVoid {
 
     public static void decorador(int num, char caracter){
