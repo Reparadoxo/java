@@ -12,7 +12,7 @@ em um ArrayList.
 */
 import java.util.*;
 public class App {
-    public static void main(String[] args){
+     static void main(String[] args){
         ArrayList<Produto> listaProdutos = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -21,12 +21,13 @@ public class App {
             System.out.println("1 - Cadastrar produto");
             System.out.println("2 - Visualizar produtos");
             System.out.println("3 - Buscar produto");
-            System.out.println("4 - Sair\n");
+            System.out.println("4 - Remover produto");
+            System.out.println("5 - Sair\n");
 
             System.out.print("Digite a opção desejada: ");
             int opcao = scanner.nextInt();
 
-            if (opcao != 4){
+            if (opcao != 5){
                 scanner.nextLine();
                 switch (opcao) {
                     case 1:
@@ -72,24 +73,44 @@ public class App {
                         /*Buscar Produto*/
                         System.out.println("Digite o nome do produto que deseja buscar");
                         String busca = scanner.nextLine();
-                        boolean status = false;
+                        boolean statusEncontrado = false;
                         for (int i = 0; i < listaProdutos.size(); i++) {
                             if (listaProdutos.get(i).getNome().equalsIgnoreCase(busca)) {
                                 System.out.printf("O produto foi encontrado na posição %d da lista.", i);
-                                status = true;
+                                statusEncontrado = true;
                             }
-
-                            if (!status) {
-                                System.out.println("O produto não foi encontrado em lugar algum :(");
-                            }
+                        }
+                        if (!statusEncontrado) {
+                            System.out.println("O produto não foi encontrado em lugar algum :(");
                         }
                         break;
                     case 4:
                         /*Remover Produto*/
+                        listaProdutos.sort(Comparator.comparing(Produto::getNome));
+                        for (int i = 0; i < listaProdutos.size(); i++) {
+                            System.out.print("Nome: " + listaProdutos.get(i).getNome() + "\n");
+                            System.out.print("Preço: " + listaProdutos.get(i).getPreco() + "\n");
+                            System.out.println();
+                        }
+
+                        System.out.println("Digite o nome do produto que deseja remover");
+                        String remover = scanner.nextLine();
+                        boolean statusRemover = false;
+                        for (int i = 0; i < listaProdutos.size(); i++) {
+                            if (listaProdutos.get(i).getNome().equalsIgnoreCase(remover)) {
+                                listaProdutos.remove(i);
+                                statusRemover = true;
+                                System.out.println("Produto removido com sucesso.");
+                            }
+                        }
+                        if(!statusRemover) {
+                            System.out.println("Produto não encontrado na lista.");
+                        }
+                        scanner.nextLine();
                     default:
                         System.out.println("Opção fora de escopo ou símbolo não reconhecido.");
                 }
-            } else {break;};
+            } else {break;}
         }
         scanner.close();
     }
